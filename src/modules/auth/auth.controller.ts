@@ -4,11 +4,16 @@ import { Response, Request } from 'express';
 
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { UserPayload } from './interfaces/user-payload';
 
 @Controller('auth')
 export class AuthController {
 
-    constructor(private readonly authService: AuthService){}
+    constructor(
+        private readonly authService: AuthService,
+        private readonly jwtService: JwtService
+    ){}
 
     @Post('login')
     async login(
@@ -33,13 +38,8 @@ export class AuthController {
 
     @Post('logout')
     logout(
-        @Req() req: Request,
         @Res() res: Response
     ){
-        const access_token = req.cookies['access_token'] as string;
-
-        if(!access_token) return res.status(401).json({message: "Credenciales inválidas"})
-
         res.clearCookie('access_token')
 
         return res.json({message: "Sesión cerrada correctamente"})
@@ -47,7 +47,23 @@ export class AuthController {
 
 
     @Get('checkSession')
-    checkSession(){
-        return ({message: "Sesión válida"});  
+    checkSession(
+        @Req() req: Request,
+        @Res() res: Response
+    ){
+
+        const token = req.cookies['access_token'] as string;
+
+        const decodedToken = this.jwtService.verify(token, {secret:'my-secret'}) as UserPayload;
+
+        const currentTime = Math.floor(Date.now() / 1000); 
+
+        const timeRemainingSeconds = decodedToken.exp - currentTime; 
+
+        const timeRemainingMilliseconds = timeRemainingSeconds * 1000;
+
+        const name = decodedToken.name;
+
+        return res.json({name, timeRemainingMilliseconds});  
     }
 }

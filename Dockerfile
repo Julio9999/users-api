@@ -1,26 +1,38 @@
-# Use the official Node.js image as the base image
-FROM node:20
+# Fase 1: Construcción
+FROM node:20 AS builder
 
-# Set the working directory inside the container
+# Establecer el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
+# Copiar solo los archivos necesarios para instalar las dependencias
 COPY package*.json ./
 
-# Install the application dependencies
+# Instalar dependencias (incluyendo devDependencies para la fase de build)
 RUN npm install
 
-# Copy the rest of the application files
+# Copiar el resto de los archivos de la aplicación
 COPY . .
 
 # Generar el cliente de Prisma
 RUN npx prisma generate
 
-# Build the NestJS application
-RUN npm run build
+# Construir la aplicación NestJS usando el CLI local
+RUN npx nest build
 
-# Expose the application port
+# Fase 2: Imagen final
+FROM node:20-slim
+
+# Establecer el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Copiar los archivos necesarios desde la fase de construcción
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/prisma ./prisma
+COPY --from=builder /usr/src/app/package*.json ./
+
+# Exponer el puerto de la aplicación
 EXPOSE 3000
 
-# Command to run the application
+# Comando para ejecutar la aplicación
 CMD ["node", "dist/src/main"]
