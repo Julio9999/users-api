@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TasksController } from './tasks.controller';
-import { RepositoriesModule } from 'src/infraestructure/repositories/repositories.module';
+import { RepositoriesModule } from '@infraestructure/repositories/repositories.module';
 
 @Module({
   imports: [RepositoriesModule],

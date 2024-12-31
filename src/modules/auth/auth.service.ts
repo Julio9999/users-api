@@ -7,8 +7,8 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { UserPayload } from './interfaces/user-payload';
-import { comparePassword } from 'src/utils/hash-password/hash-password';
-import { UsersRepository } from 'src/infraestructure/repositories/users/users.repository';
+import { comparePassword } from '@utils/hash-password/hash-password';
+import { UsersRepository } from '@infraestructure/repositories/users/users.repository';
 
 @Injectable()
 export class AuthService {
@@ -43,7 +43,7 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload, {
         secret: 'my-secret',
-        expiresIn: '1h'
+        expiresIn: '1m'
       }),
     };
   }

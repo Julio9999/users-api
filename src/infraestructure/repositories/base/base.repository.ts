@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { PersistanceService } from 'src/infraestructure/persistence/persistance.service';
+import { PersistanceService } from '@infraestructure/persistence/persistance.service';
 
 
 
@@ -12,9 +12,7 @@ export class BaseRepository<T> {
   ) {}
 
   async create(data: any): Promise<T> {
-    return this.persistanceService[this.model].create({
-      data,
-    });
+    return this.persistanceService[this.model].create(data);
   }
 
   async findAll(): Promise<T[]> {
@@ -29,14 +27,14 @@ export class BaseRepository<T> {
 
   async update(id: number, data: Partial<T>): Promise<T> {
     return this.persistanceService[this.model].update({
-      where: { id },
+      where: { id, disabled: false },
       data,
     });
   }
 
   async delete(id: number): Promise<T> {
     return this.persistanceService[this.model].update({
-      where: { id },
+      where: { id, disabled: false },
       data: {disabled: true}
     });
   }

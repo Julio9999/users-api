@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { StatusesService } from './statuses.service';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
@@ -22,13 +22,14 @@ export class StatusesController {
     return this.statusesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateStatusDto: UpdateStatusDto) {
     return this.statusesService.update(+id, updateStatusDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.statusesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.statusesService.remove(+id);
+    return {message: "Eliminado correctamente"}
   }
 }

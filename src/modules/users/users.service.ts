@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { hasPassword } from 'src/utils/hash-password/hash-password';
-import { UsersRepository } from 'src/infraestructure/repositories/users/users.repository';
+import { hasPassword } from '@utils/hash-password/hash-password';
+import { UsersRepository } from '@infraestructure/repositories/users/users.repository';
 
 @Injectable()
 export class UsersService {
@@ -19,7 +19,7 @@ export class UsersService {
         email
       }
     })
-    return 'Usuario creado correctamente';
+    return {message: "Usuario creado correctamente"};
   }
   findAll() {
     return this.usersRepository.findAll();
@@ -36,6 +36,6 @@ export class UsersService {
   remove(id: number) {
     this.usersRepository.delete(id)
 
-    return "Usuario desactivado con éxito"
+    return {message: "Usuario desactivado con éxito"}
   }
 }

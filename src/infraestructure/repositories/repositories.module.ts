@@ -1,4 +1,4 @@
-import { PersistanceModule } from 'src/infraestructure/persistence/persistance.module';
+import { PersistanceModule } from '@infraestructure/persistence/persistance.module';
 import { Module } from '@nestjs/common';
 import { UsersRepository } from './users/users.repository';
 import { TasksRepository } from './tasks/tasks.repository';

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 
 import { Response, Request } from 'express';
 
@@ -23,7 +23,7 @@ export class AuthController {
 
         res.cookie('access_token', access_token, {
             secure: true,
-            maxAge: 60*60*1000,
+            maxAge: 1 * 60 * 1000,
             httpOnly: true
         });
 
@@ -36,8 +36,8 @@ export class AuthController {
         @Req() req: Request,
         @Res() res: Response
     ){
-
         const access_token = req.cookies['access_token'] as string;
+
         if(!access_token) return res.status(401).json({message: "Credenciales inválidas"})
 
         res.clearCookie('access_token')
@@ -45,4 +45,9 @@ export class AuthController {
         return res.json({message: "Sesión cerrada correctamente"})
     }
 
+
+    @Get('checkSession')
+    checkSession(){
+        return ({message: "Sesión válida"});  
+    }
 }

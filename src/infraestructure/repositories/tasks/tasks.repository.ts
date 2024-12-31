@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BaseRepository } from '../base/base.repository';
 import { Task } from '@prisma/client';
-import { PersistanceService } from 'src/infraestructure/persistence/persistance.service';
+import { PersistanceService } from '@infraestructure/persistence/persistance.service';
 
 @Injectable()
 export class TasksRepository extends BaseRepository<Task> {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
-import { StatusesRepository } from 'src/infraestructure/repositories/statuses/statuses.repository';
+import { StatusesRepository } from '@infraestructure/repositories/statuses/statuses.repository';
 
 @Injectable()
 export class StatusesService {
@@ -15,7 +15,7 @@ export class StatusesService {
         name,
       },
     });
-    return 'Status creado correctamente';
+    return {message: "Status creado correctamente"};
   }
 
   findAll() {
@@ -26,11 +26,12 @@ export class StatusesService {
     return this.statusesRepository.findOne(id);
   }
 
-  update(id: number, updateStatusDto: UpdateStatusDto) {
-    return `This action updates a #${id} status`;
+  async update(id: number, updateStatusDto: UpdateStatusDto) {
+    await this.statusesRepository.update(id, updateStatusDto);
+    return {message: "Status actualizado correctamente"};
   }
 
   remove(id: number) {
-    return `This action removes a #${id} status`;
+    return this.statusesRepository.delete(id);
   }
 }

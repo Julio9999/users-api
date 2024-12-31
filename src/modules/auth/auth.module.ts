@@ -3,7 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { AuthMiddleware } from './auth.middleware';
-import { RepositoriesModule } from 'src/infraestructure/repositories/repositories.module';
+import { RepositoriesModule } from '@infraestructure/repositories/repositories.module';
 
 @Module({
   imports: [JwtModule, RepositoriesModule],

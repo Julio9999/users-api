@@ -3,7 +3,7 @@ import {
   NestMiddleware,
   UnauthorizedException,
 } from '@nestjs/common';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { UserPayload } from './interfaces/user-payload';
 
@@ -15,7 +15,7 @@ export class AuthMiddleware implements NestMiddleware {
     const token = req.cookies['access_token'];
 
     if (!token) {
-      throw new UnauthorizedException('Token no proporcionado');
+      throw new UnauthorizedException('Credenciales invalidas');
     }
 
     try {

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PersistanceService } from 'src/infraestructure/persistence/persistance.service';
+import { PersistanceService } from '@infraestructure/persistence/persistance.service';
 
 @Module({
   providers: [PersistanceService],

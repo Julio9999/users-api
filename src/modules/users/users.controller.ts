@@ -3,8 +3,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { RolesGuard } from 'src/global/guards/roles.guard';
-import { Roles } from 'src/global/decorators/roles.decorator';
+import { RolesGuard } from '@global/guards/roles.guard';
+import { Roles } from '@global/decorators/roles.decorator';
 
 @UseGuards(RolesGuard)
 @Controller('users')
