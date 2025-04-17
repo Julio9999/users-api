@@ -22,6 +22,8 @@ RUN npx nest build
 # Fase 2: Imagen final
 FROM node:20-slim
 
+RUN apt-get update -y && apt-get install -y openssl
+
 # Establecer el directorio de trabajo
 WORKDIR /usr/src/app
 

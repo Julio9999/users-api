@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { StatusesRepository } from '@infraestructure/repositories/statuses/statuses.repository';
+
+import type { Status } from '@interfaces/statuses/statuses.interface';
 
 @Injectable()
 export class StatusesService {
@@ -18,7 +21,7 @@ export class StatusesService {
     return {message: "Status creado correctamente"};
   }
 
-  findAll() {
+  findAll(): Promise<Status[]> {
     return this.statusesRepository.findAll();
   }
 

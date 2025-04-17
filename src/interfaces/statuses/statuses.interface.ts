@@ -1,0 +1,1 @@
+export type Status = import("@prisma/client").Status;

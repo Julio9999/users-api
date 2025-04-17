@@ -28,11 +28,11 @@ export class AuthController {
 
         res.cookie('access_token', access_token, {
             secure: true,
-            maxAge: 1 * 60 * 1000,
+            maxAge: 10 * 60 * 1000,
             httpOnly: true
         });
 
-        res.json({message: "Sesión iniciada correctamente"})
+        res.json({message: "Sesión iniciada correctamente", sessionDuration: 10*60*100})
     }
 
 
@@ -64,6 +64,6 @@ export class AuthController {
 
         const name = decodedToken.name;
 
-        return res.json({name, timeRemainingMilliseconds});  
+        return res.json({name, timeRemainingMilliseconds, isValid: true, exp: decodedToken.exp});  
     }
 }

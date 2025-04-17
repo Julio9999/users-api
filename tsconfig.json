@@ -19,6 +19,7 @@
        "@modules/users/*": ["src/users/*"],
        "@utils/*": ["src/utils/*"],
        "@global/*": ["src/global/*"],
+       "@interfaces/*": ["src/interfaces/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -26,6 +27,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "strict": true
   }
 }

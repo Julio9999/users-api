@@ -6,6 +6,7 @@ import { RolesGuard } from './global/guards/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  console.log(process.env.DATABASE_URL)
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({origin: true, credentials: true});
   app.use(cookieParser());

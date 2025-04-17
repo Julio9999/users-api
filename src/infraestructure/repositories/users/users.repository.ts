@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { BaseRepository } from '../base/base.repository';
 import { PersistanceService } from '@infraestructure/persistence/persistance.service';
+
+import type { User } from '@interfaces/users/users.interface';
 
 @Injectable()
 export class UsersRepository extends BaseRepository<User> {
